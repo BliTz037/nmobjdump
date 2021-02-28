@@ -5,6 +5,14 @@
 ** nm
 */
 
+#include <stdio.h>
+#include <elf.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #ifndef NM_H_
 #define NM_H_
 

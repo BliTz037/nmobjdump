@@ -27,11 +27,11 @@ OBJ_MAIN_OBJDUMP = 	$(MAIN_OBJDUMP:.c=.o)
 
 CC		=	gcc
 
-CPPFLAGS		+=	-Wall -Wextra -I include
+CPPFLAGS		+=	-Wall -Wextra -I include -g3
 
-all: nm
+all: nm objdump
 
-nm:	$(NAME_NM) $(NAME_OBJDUMP)
+nm:	$(NAME_NM)
 
 $(NAME_NM): $(OBJ_MAIN_NM) $(OBJ_NM)
 			$(CC) -o $(NAME_NM) $(OBJ_MAIN_NM) $(OBJ_NM) $(CPPFLAGS)
