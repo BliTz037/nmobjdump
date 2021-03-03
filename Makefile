@@ -10,7 +10,7 @@ MAIN_NM =	nm/main.c
 MAIN_OBJDUMP = objdump/main.c
 
 ## SRC
-SRC_NM	=
+SRC_NM	= nm/sym_type.c \
 
 SRC_OBJDUMP =
 
