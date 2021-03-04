@@ -7,6 +7,20 @@
 
 #include "nm.h"
 
+int get_stat_file(int fd, struct stat *s,char *filename)
+{
+    if (fd == -1) {
+        printf("nm: '%s': No such file\n", filename);
+        return 84;
+    }
+    fstat(fd, s);
+    if (S_ISREG(s->st_mode) == 0) {
+        printf("nm: Warning: '%s' is a directory\n", filename);
+        return 84;
+    }
+    return 0;
+}
+
 int check_type_file(uint16_t e_type, char *filename)
 {
     if (e_type == ET_NONE)
@@ -47,7 +61,7 @@ int get_elf(int fd, struct stat s, char *filename)
         }
     }
     for (int i = 0; i < size; i++) {
-        if (symtab[i].st_name != 0 && symtab->st_info != STT_FILE) {
+        if (symtab[i].st_name && symtab->st_info != STT_FILE) {
             if (symtab[i].st_value != 0)
                 printf("%016lx %c %s\n", symtab[i].st_value, get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
             else
@@ -66,13 +80,8 @@ int main(int ac, char **av)
     if (ac >= 2)
         filename = av[1];
     fd = open(filename, O_RDONLY);
-    if (fd == -1) {
-        printf("nm: '%s': No such file\n", filename);
-        return 84;
-    }
-    fstat(fd, &s);
-    if (S_ISREG(s.st_mode) == 0) {
-        printf("nm: Warning: '%s' is a directory\n", filename);
+    if (get_stat_file(fd, &s, filename) == 84) {
+        close(fd);
         return 84;
     }
     if (get_elf(fd, s, filename) == 84) {
