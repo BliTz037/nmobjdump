@@ -7,36 +7,6 @@
 
 #include "nm.h"
 
-int get_stat_file(int fd, struct stat *s,char *filename)
-{
-    if (fd == -1) {
-        printf("nm: '%s': No such file\n", filename);
-        return 84;
-    }
-    fstat(fd, s);
-    if (S_ISREG(s->st_mode) == 0) {
-        printf("nm: Warning: '%s' is a directory\n", filename);
-        return 84;
-    }
-    return 0;
-}
-
-int check_type_file(uint16_t e_type, char *filename)
-{
-    if (e_type == ET_NONE)
-        return 0;
-    if (e_type == ET_REL)
-        return 0;
-    if (e_type == ET_EXEC)
-        return 0;
-    if (e_type == ET_DYN)
-        return 0;
-    if (e_type == ET_CORE)
-        return 0;
-    printf("nm: %s: file format not recognized\n", filename);
-    return -1;
-}
-
 int get_elf(int fd, struct stat s, char *filename)
 {
     void *buf = mmap(NULL, s.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
@@ -49,7 +19,7 @@ int get_elf(int fd, struct stat s, char *filename)
     if (buf == (void *)(-1))
         return 84;
     elf = (Elf64_Ehdr *)(buf);
-    if (check_type_file(elf->e_type, filename) == -1)
+    if (check_type_file(elf->e_type, filename, "nm") == -1)
         return 84;
     sections = (Elf64_Shdr *)(buf + elf->e_shoff);
     for (int i = 0; i < elf->e_shnum; i++) {
@@ -80,7 +50,7 @@ int main(int ac, char **av)
     if (ac >= 2)
         filename = av[1];
     fd = open(filename, O_RDONLY);
-    if (get_stat_file(fd, &s, filename) == 84) {
+    if (get_stat_file(fd, &s, filename, "nm") == 84) {
         close(fd);
         return 84;
     }

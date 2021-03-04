@@ -12,13 +12,13 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <stdlib.h>
 
 #ifndef NM_H_
 #define NM_H_
 
 char get_sym_type(Elf64_Sym symtab, Elf64_Shdr *sections);
 int get_elf(int fd, struct stat s, char *filename);
-int check_type_file(uint16_t e_type, char *filename);
+int get_stat_file(int fd, struct stat *s, char *filename, char *exec);
+int check_type_file(uint16_t e_type, char *filename, char *exec);
 
 #endif /* !NM_H_ */

@@ -11,8 +11,9 @@ MAIN_OBJDUMP = objdump/main.c
 
 ## SRC
 SRC_NM	= nm/sym_type.c \
+		  file.c
 
-SRC_OBJDUMP =
+SRC_OBJDUMP = file.c
 
 ## NAME
 NAME_NM	=	my_nm

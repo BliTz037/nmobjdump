@@ -5,8 +5,18 @@
 ** objdump
 */
 
+#include <stdio.h>
+#include <elf.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #ifndef OBJDUMP_H_
 #define OBJDUMP_H_
 
+int get_stat_file(int fd, struct stat *s, char *filename, char *exec);
+int check_type_file(uint16_t e_type, char *filename, char *exec);
 
 #endif /* !OBJDUMP_H_ */
