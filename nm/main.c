@@ -7,6 +7,20 @@
 
 #include "nm.h"
 
+void print_symtab(Elf64_Shdr *sections, char *str, Elf64_Sym *symtab, int size)
+{
+    for (int i = 0; i < size; i++) {
+        if (symtab[i].st_name && symtab->st_info != STT_FILE) {
+            if (symtab[i].st_value != 0)
+                printf("%016lx %c %s\n", symtab[i].st_value,
+                get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
+            else
+                printf("%-16.16s %c %s\n", " ",
+                get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
+        }
+    }
+}
+
 int get_elf(int fd, struct stat s, char *filename)
 {
     void *buf = mmap(NULL, s.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
@@ -30,14 +44,7 @@ int get_elf(int fd, struct stat s, char *filename)
             break;
         }
     }
-    for (int i = 0; i < size; i++) {
-        if (symtab[i].st_name && symtab->st_info != STT_FILE) {
-            if (symtab[i].st_value != 0)
-                printf("%016lx %c %s\n", symtab[i].st_value, get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
-            else
-                printf("%-16.16s %c %s\n", " ", get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
-        }
-    }
+    print_symtab(sections, str, symtab, size);
     return 0;
 }
 
