@@ -27,18 +27,22 @@ int get_stat_file(int fd, struct stat *s, char *filename, char *exec)
     return 0;
 }
 
-int check_type_file(uint16_t e_type, char *filename, char *exec)
+int check_type_file(char *buf, char *filename, char *exec)
 {
-    if (e_type == ET_NONE)
-        return 0;
-    if (e_type == ET_REL)
-        return 0;
-    if (e_type == ET_EXEC)
-        return 0;
-    if (e_type == ET_DYN)
-        return 0;
-    if (e_type == ET_CORE)
+    if ((unsigned char)buf[EI_MAG0] == 0x7f &&
+        (unsigned char)buf[EI_MAG1] == 'E' &&
+        (unsigned char)buf[EI_MAG2] == 'L' &&
+        (unsigned char)buf[EI_MAG3] == 'F')
         return 0;
     printf("%s: %s: file format not recognized\n", exec, filename);
+    return -1;
+}
+
+int check_arch(char *buf)
+{
+    if ((unsigned char)buf[EI_CLASS] == ELFCLASS64)
+        return ELFCLASS64;
+    if ((unsigned char)buf[EI_CLASS] == ELFCLASS32)
+        return ELFCLASS32;
     return -1;
 }

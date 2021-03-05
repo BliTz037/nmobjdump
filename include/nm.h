@@ -19,6 +19,9 @@
 char get_sym_type(Elf64_Sym symtab, Elf64_Shdr *sections);
 int get_elf(int fd, struct stat s, char *filename);
 int get_stat_file(int fd, struct stat *s, char *filename, char *exec);
-int check_type_file(uint16_t e_type, char *filename, char *exec);
+int check_type_file(char *buf, char *filename, char *exec);
+int check_arch(char *buf);
+void print_symtab(Elf64_Shdr *sections, char *str, Elf64_Sym *symtab, int size);
+void nm_64(void *buf);
 
 #endif /* !NM_H_ */

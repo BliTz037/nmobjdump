@@ -17,6 +17,7 @@
 #define OBJDUMP_H_
 
 int get_stat_file(int fd, struct stat *s, char *filename, char *exec);
-int check_type_file(uint16_t e_type, char *filename, char *exec);
+int check_type_file(char *buf, char *filename, char *exec);
+int check_arch(char *buf);
 
 #endif /* !OBJDUMP_H_ */

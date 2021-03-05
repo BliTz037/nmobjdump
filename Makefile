@@ -10,10 +10,11 @@ MAIN_NM =	nm/main.c
 MAIN_OBJDUMP = objdump/main.c
 
 ## SRC
-SRC_NM	= nm/sym_type.c \
-		  file.c
+SRC_NM	= nm/elf_64/sym_type.c \
+		  nm/elf_64/sym_print.c \
+		  all/file.c
 
-SRC_OBJDUMP = file.c
+SRC_OBJDUMP = all/file.c
 
 ## NAME
 NAME_NM	=	my_nm
