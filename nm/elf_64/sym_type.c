@@ -7,7 +7,7 @@
 
 #include "nm.h"
 
-static char get_sym_type_shndx(Elf64_Sym symtab, Elf64_Shdr *sections)
+static char get_sym_type_shndx64(Elf64_Sym symtab, Elf64_Shdr *sections)
 {
     if (symtab.st_shndx == SHN_ABS)
         return 'A';
@@ -30,7 +30,7 @@ static char get_sym_type_shndx(Elf64_Sym symtab, Elf64_Shdr *sections)
     return '?';
 }
 
-static char get_sym_type_st_bind(Elf64_Sym symtab)
+static char get_sym_type_st_bind64(Elf64_Sym symtab)
 {
     if (ELF64_ST_BIND(symtab.st_info) == STB_GNU_UNIQUE)
         return 'u';
@@ -50,12 +50,12 @@ static char get_sym_type_st_bind(Elf64_Sym symtab)
     return '?';
 }
 
-char get_sym_type(Elf64_Sym symtab, Elf64_Shdr *sections)
+char get_sym_type64(Elf64_Sym symtab, Elf64_Shdr *sections)
 {
-    char c = get_sym_type_st_bind(symtab);
+    char c = get_sym_type_st_bind64(symtab);
 
     if (c == '?')
-        c = get_sym_type_shndx(symtab, sections);
+        c = get_sym_type_shndx64(symtab, sections);
     if (ELF64_ST_BIND(symtab.st_info) == STB_LOCAL && c != '?')
         c += 32;
     return c;

@@ -7,16 +7,16 @@
 
 #include "nm.h"
 
-void print_symtab(Elf64_Shdr *sections, char *str, Elf64_Sym *symtab, int size)
+void print_symtab64(Elf64_Shdr *sections, char *str, Elf64_Sym *symtab, int size)
 {
     for (int i = 0; i < size; i++) {
         if (symtab[i].st_name && symtab->st_info != STT_FILE) {
             if (symtab[i].st_value != 0)
                 printf("%016lx %c %s\n", symtab[i].st_value,
-                get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
+                get_sym_type64(symtab[i], sections), &str[symtab[i].st_name]);
             else
                 printf("%-16.16s %c %s\n", " ",
-                get_sym_type(symtab[i], sections), &str[symtab[i].st_name]);
+                get_sym_type64(symtab[i], sections), &str[symtab[i].st_name]);
         }
     }
 }
@@ -39,5 +39,5 @@ void nm_64(void *buf)
             break;
         }
     }
-    print_symtab(sections, str, symtab, size);
+    print_symtab64(sections, str, symtab, size);
 }
