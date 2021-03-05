@@ -12,6 +12,8 @@ MAIN_OBJDUMP = objdump/main.c
 ## SRC
 SRC_NM	= nm/elf_64/sym_type.c \
 		  nm/elf_64/sym_print.c \
+		  nm/elf_32/sym_print.c \
+		  nm/elf_32/sym_type.c \
 		  all/file.c
 
 SRC_OBJDUMP = all/file.c

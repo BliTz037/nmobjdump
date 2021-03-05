@@ -18,7 +18,7 @@ int get_elf(int fd, struct stat s, char *filename)
     if (check_arch((char *)buf) == ELFCLASS64)
         nm_64(buf);
     if (check_arch((char *)buf) == ELFCLASS32)
-        printf("32 BIT\n");
+        nm_32(buf);
     return 0;
 }
 
