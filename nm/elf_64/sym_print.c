@@ -9,8 +9,11 @@
 
 void print_symtab64(Elf64_Shdr *sections, char *str, Elf64_Sym *symtab, int size)
 {
+    char c;
+
     for (int i = 0; i < size; i++) {
-        if (symtab[i].st_name && symtab->st_info != STT_FILE) {
+        c = get_sym_type64(symtab[i], sections);
+        if (symtab[i].st_name && symtab->st_info != STT_FILE && c != 'a') {
             if (symtab[i].st_value != 0)
                 printf("%016lx %c %s\n", symtab[i].st_value,
                 get_sym_type64(symtab[i], sections), &str[symtab[i].st_name]);
