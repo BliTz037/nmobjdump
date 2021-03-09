@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2021
+** B-PSU-400-PAR-4-1-nmobjdump-tom.rives
+** File description:
+** flags
+*/
+
 #ifndef __BFD_H_SEEN__
 #define __BFD_H_SEEN__
 
