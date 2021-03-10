@@ -18,7 +18,7 @@ int get_elf(int fd, struct stat s, char *filename)
     if (check_arch((char *)buf) == ELFCLASS64)
         objdump_64(buf, filename);
     if (check_arch((char *)buf) == ELFCLASS32)
-        printf("32 BIT\n");
+        objdump_32(buf, filename);
     return 0;
 }
 

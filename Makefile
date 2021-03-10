@@ -17,7 +17,10 @@ SRC_NM	= nm/elf_64/sym_type.c \
 		  all/file.c
 
 SRC_OBJDUMP = all/file.c \
-			  objdump/elf_64/strtab.c
+			  objdump/elf_64/strtab.c \
+			  objdump/elf_64/print_section.c \
+			  objdump/elf_32/strtab.c \
+			  objdump/elf_32/print_section.c \
 
 ## NAME
 NAME_NM	=	my_nm
