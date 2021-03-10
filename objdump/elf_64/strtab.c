@@ -62,14 +62,23 @@ void print_header64(char *filename, Elf64_Ehdr *elf, void *buf)
     printf("\n%s:\tfile format elf64-x86-64\n", filename);
     printf("architecture: i386:x86-64, flags 0x%08x\n", flags);
     print_flag(flags);
-    printf("start address 0x%016lx\n", elf->e_entry);
+    printf("start address 0x%016lx\n\n", elf->e_entry);
 }
 
 void objdump_64(void *buf, char *filename)
 {
     Elf64_Ehdr *elf = (Elf64_Ehdr *)(buf);
-    Elf64_Shdr *sections;
+    Elf64_Shdr *sections = (Elf64_Shdr *)(buf + elf->e_shoff);
+    Elf64_Sym *strtab;
+    char *str = (char *)(buf + sections[elf->e_shstrndx].sh_offset);
+    int size = 0;
 
-    sections = (Elf64_Shdr *)(buf + elf->e_shoff);
     print_header64(filename, elf, buf);
+    for (int i = 0; i != elf->e_shnum; i++) {
+        if (sections[i].sh_type != SHT_NOBITS &&
+        sections[i].sh_type != SHT_NULL && sections[i].sh_type != SHT_STRTAB &&
+        sections[i].sh_type != SHT_SYMTAB) {
+            printf("Contents of section %s:\n", &str[sections[i].sh_name]);
+        }
+    }
 }
