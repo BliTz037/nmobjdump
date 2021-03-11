@@ -36,7 +36,7 @@ int get_flag32(Elf32_Ehdr *elf, void *buf)
 
 void print_header32(char *filename, Elf32_Ehdr *elf, void *buf)
 {
-    int flags = get_flag32(elf,buf);
+    int flags = get_flag32(elf, buf);
 
     printf("\n%s:\tfile format elf32-i386\n", filename);
     printf("architecture: i386, flags 0x%08x\n", flags);

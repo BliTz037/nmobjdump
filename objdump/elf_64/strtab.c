@@ -57,7 +57,7 @@ void print_flag(int flags)
 
 void print_header64(char *filename, Elf64_Ehdr *elf, void *buf)
 {
-    int flags = get_flag64(elf,buf);
+    int flags = get_flag64(elf, buf);
 
     printf("\n%s:\tfile format elf64-x86-64\n", filename);
     printf("architecture: i386:x86-64, flags 0x%08x\n", flags);
