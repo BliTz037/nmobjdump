@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <byteswap.h>
 #include "flags.h"
 
 #ifndef OBJDUMP_H_
