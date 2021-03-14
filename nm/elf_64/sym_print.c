@@ -50,14 +50,12 @@ void symtab64(Elf64_Shdr *sections, char *str, Elf64_Sym *symtab, int size)
 
 void nm_64(void *buf)
 {
-    Elf64_Ehdr *elf;
-    Elf64_Shdr *sections;
+    Elf64_Ehdr *elf = (Elf64_Ehdr *)(buf);
+    Elf64_Shdr *sections = (Elf64_Shdr *)(buf + elf->e_shoff);
     Elf64_Sym *symtab;
     char *str = NULL;
     int size = 0;
 
-    elf = (Elf64_Ehdr *)(buf);
-    sections = (Elf64_Shdr *)(buf + elf->e_shoff);
     for (int i = 0; i < elf->e_shnum; i++) {
         if (sections[i].sh_type == SHT_SYMTAB) {
             symtab = (Elf64_Sym *)(buf + sections[i].sh_offset);
