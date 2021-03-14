@@ -60,7 +60,7 @@ void print_header64(char *filename, Elf64_Ehdr *elf, void *buf)
     int flags = get_flag64(elf, buf);
 
     printf("\n%s:\tfile format elf64-x86-64\n", filename);
-    printf("architecture: i386:x86-64, flags 0x%08x\n", flags);
+    printf("architecture: i386:x86-64, flags 0x%08x:\n", flags);
     print_flag(flags);
     printf("start address 0x%016lx\n\n", elf->e_entry);
 }
