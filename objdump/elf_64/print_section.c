@@ -9,12 +9,13 @@
 
 void print_adress(int *adr, int *len_adr)
 {
-    for (int i = 0; i < 4 && &adr[i] < len_adr; i++)
-        if (adr[i])
+    int i = 0;
+
+    for (; i < 4 && &adr[i] < len_adr; i++)
             printf(" %08x", bswap_32(adr[i]));
-        else
-            printf(" %-8.8s", " ");
-    printf(" ");
+    for (; i < 4; i++)
+        printf(" %-8.8s", " ");
+    printf("  ");
 }
 
 void print_section_content64(Elf64_Shdr section, void *elf)
