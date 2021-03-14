@@ -12,7 +12,7 @@ void print_adress(int *adr, int *len_adr)
     int i = 0;
 
     for (; i < 4 && &adr[i] < len_adr; i++)
-            printf(" %08x", bswap_32(adr[i]));
+        printf(" %08x", bswap_32(adr[i]));
     for (; i < 4; i++)
         printf(" %-8.8s", " ");
     printf("  ");

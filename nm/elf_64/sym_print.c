@@ -22,8 +22,8 @@ void print_symtab64(symbole_t *s, int size)
     for (int i = 0; i != size; i++) {
         if (s[i].value != 0)
             printf("%016lx %c %s\n", s[i].value, s[i].type, s[i].str);
-            else
-                printf("%-16.16s %c %s\n", " ", s[i].type, s[i].str);
+        else
+            printf("%-16.16s %c %s\n", " ", s[i].type, s[i].str);
     }
 }
 

@@ -22,8 +22,8 @@ void print_symtab32(symbole_t *s, int size)
     for (int i = 0; i != size; i++) {
         if (s[i].value != 0)
             printf("%08lx %c %s\n", s[i].value, s[i].type, s[i].str);
-            else
-                printf("%-8.8s %c %s\n", " ", s[i].type, s[i].str);
+        else
+            printf("%-8.8s %c %s\n", " ", s[i].type, s[i].str);
     }
 }
 
